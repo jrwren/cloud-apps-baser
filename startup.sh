@@ -52,7 +52,7 @@ exithandler() {
     sleep 3
     pgrep -x haproxy > /dev/null 2>&1
     if [ $? -ne 0 ]; then
-      haproxy -D -m ${proxyMemory:-240} -f /etc/haproxy/haproxy.cfg -q &
+      haproxy -D -m ${proxyMemory:-720} -f /etc/haproxy/haproxy.cfg -q &
     fi
   fi
   if kill -0 $APPPID; then
@@ -111,7 +111,7 @@ log "Rendering haproxy config"
 MAXSSLRATE=${MAXSSLRATE:-1000} /usr/bin/gucci -o missingkey=default /etc/haproxy/haproxy.cfg.tpl > /etc/haproxy/haproxy.cfg
 if [[ ! -v NOHAPROXY ]]; then
   log "Starting haproxy"
-  haproxy -D -m ${proxyMemory:-240} -f /etc/haproxy/haproxy.cfg -q &
+  haproxy -D -m ${proxyMemory:-720} -f /etc/haproxy/haproxy.cfg -q &
   ps auxww
 fi
 
