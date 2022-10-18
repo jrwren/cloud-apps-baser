@@ -1,0 +1,24 @@
+- type: log
+  enabled: true
+  paths:
+    - /usr/local/nomad/data/alloc/NOMAD_ALLOC_ID/alloc/logs/*.stdout.*
+  tags: ["logstash_tags", "stdout"]
+  fields:
+    kafka_topic_suffix: NOMAD_META_CONSULDC_app
+    log_type: app
+  # match multiline events
+  multiline.pattern: '^[[:space:]]'
+  multiline.negate: false
+  multiline.match: after
+- type: log
+  enabled: true
+  paths:
+    - /usr/local/nomad/data/alloc/NOMAD_ALLOC_ID/alloc/logs/*.stderr.*
+  tags: ["logstash_tags", "stderr"]
+  fields:
+    kafka_topic_suffix: NOMAD_META_CONSULDC_app
+    log_type: app
+  # match multiline events
+  multiline.pattern: '^[[:space:]]'
+  multiline.negate: false
+  multiline.match: after
